@@ -1,4 +1,4 @@
-defmodule Test.DataCase do
+defmodule Waves.DataCase do
   @moduledoc """
   This module defines the setup for tests requiring
   access to the application's data layer.
@@ -16,20 +16,20 @@ defmodule Test.DataCase do
 
   using do
     quote do
-      alias Test.Repo
+      alias Waves.Repo
 
       import Ecto
       import Ecto.Changeset
       import Ecto.Query
-      import Test.DataCase
+      import Waves.DataCase
     end
   end
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Test.Repo)
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Waves.Repo)
 
     unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(Test.Repo, {:shared, self()})
+      Ecto.Adapters.SQL.Sandbox.mode(Waves.Repo, {:shared, self()})
     end
 
     :ok

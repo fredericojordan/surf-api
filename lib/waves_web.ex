@@ -1,12 +1,12 @@
-defmodule TestWeb do
+defmodule WavesWeb do
   @moduledoc """
   The entrypoint for defining your web interface, such
   as controllers, views, channels and so on.
 
   This can be used in your application as:
 
-      use TestWeb, :controller
-      use TestWeb, :view
+      use WavesWeb, :controller
+      use WavesWeb, :view
 
   The definitions below will be executed for every view,
   controller, etc, so keep them short and clean, focused
@@ -19,19 +19,19 @@ defmodule TestWeb do
 
   def controller do
     quote do
-      use Phoenix.Controller, namespace: TestWeb
+      use Phoenix.Controller, namespace: WavesWeb
 
       import Plug.Conn
-      import TestWeb.Gettext
-      alias TestWeb.Router.Helpers, as: Routes
+      import WavesWeb.Gettext
+      alias WavesWeb.Router.Helpers, as: Routes
     end
   end
 
   def view do
     quote do
       use Phoenix.View,
-        root: "lib/test_web/templates",
-        namespace: TestWeb
+        root: "lib/waves_web/templates",
+        namespace: WavesWeb
 
       # Import convenience functions from controllers
       import Phoenix.Controller, only: [get_flash: 1, get_flash: 2, view_module: 1]
@@ -39,9 +39,9 @@ defmodule TestWeb do
       # Use all HTML functionality (forms, tags, etc)
       use Phoenix.HTML
 
-      import TestWeb.ErrorHelpers
-      import TestWeb.Gettext
-      alias TestWeb.Router.Helpers, as: Routes
+      import WavesWeb.ErrorHelpers
+      import WavesWeb.Gettext
+      alias WavesWeb.Router.Helpers, as: Routes
     end
   end
 
@@ -56,7 +56,7 @@ defmodule TestWeb do
   def channel do
     quote do
       use Phoenix.Channel
-      import TestWeb.Gettext
+      import WavesWeb.Gettext
     end
   end
 

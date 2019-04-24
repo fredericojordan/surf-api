@@ -1,6 +1,6 @@
-defmodule Test do
+defmodule Waves do
   @moduledoc """
-  Test keeps the contexts that define your domain
+  Waves keeps the contexts that define your domain
   and business logic.
 
   Contexts are also responsible for managing your data, regardless

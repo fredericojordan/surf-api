@@ -1,7 +1,7 @@
-defmodule TestWeb.Endpoint do
-  use Phoenix.Endpoint, otp_app: :test
+defmodule WavesWeb.Endpoint do
+  use Phoenix.Endpoint, otp_app: :waves
 
-  socket "/socket", TestWeb.UserSocket,
+  socket "/socket", WavesWeb.UserSocket,
     websocket: true,
     longpoll: false
 
@@ -11,7 +11,7 @@ defmodule TestWeb.Endpoint do
   # when deploying your static files in production.
   plug Plug.Static,
     at: "/",
-    from: :test,
+    from: :waves,
     gzip: false,
     only: ~w(css fonts images js favicon.ico robots.txt)
 
@@ -39,8 +39,8 @@ defmodule TestWeb.Endpoint do
   # Set :encryption_salt if you would also like to encrypt it.
   plug Plug.Session,
     store: :cookie,
-    key: "_test_key",
-    signing_salt: "glZGnkc5"
+    key: "_waves_key",
+    signing_salt: "Q3F5KOUt"
 
-  plug TestWeb.Router
+  plug WavesWeb.Router
 end

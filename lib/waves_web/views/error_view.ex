@@ -1,5 +1,5 @@
-defmodule TestWeb.ErrorView do
-  use TestWeb, :view
+defmodule WavesWeb.ErrorView do
+  use WavesWeb, :view
 
   # If you want to customize a particular status code
   # for a certain format, you may uncomment below.

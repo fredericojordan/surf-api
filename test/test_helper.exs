@@ -1,2 +1,2 @@
 ExUnit.start()
-Ecto.Adapters.SQL.Sandbox.mode(Test.Repo, :manual)
+Ecto.Adapters.SQL.Sandbox.mode(Waves.Repo, :manual)

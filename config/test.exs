@@ -2,7 +2,7 @@ use Mix.Config
 
 # We don't run a server during test. If one is required,
 # you can enable the server option below.
-config :test, TestWeb.Endpoint,
+config :waves, WavesWeb.Endpoint,
   http: [port: 4002],
   server: false
 
@@ -10,9 +10,9 @@ config :test, TestWeb.Endpoint,
 config :logger, level: :warn
 
 # Configure your database
-config :test, Test.Repo,
+config :waves, Waves.Repo,
   username: "postgres",
   password: "postgres",
-  database: "test_test",
+  database: "waves_test",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox

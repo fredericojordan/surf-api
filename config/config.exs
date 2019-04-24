@@ -7,15 +7,15 @@
 # General application configuration
 use Mix.Config
 
-config :test,
-  ecto_repos: [Test.Repo]
+config :waves,
+  ecto_repos: [Waves.Repo]
 
 # Configures the endpoint
-config :test, TestWeb.Endpoint,
+config :waves, WavesWeb.Endpoint,
   url: [host: "localhost"],
-  secret_key_base: "xZb42V5gFUDCrHZ3Ud2nZJ/MeEbPfXGwK1jc6c8i+/1h/zddUVG3mf8lBN0oFItj",
-  render_errors: [view: TestWeb.ErrorView, accepts: ~w(html json)],
-  pubsub: [name: Test.PubSub, adapter: Phoenix.PubSub.PG2]
+  secret_key_base: "AwMyJMuv5nQs7QQI4CO6DMgqvkU9BFVeCLcd0zCDQxLteNMGV//4t7/onh6GuXiR",
+  render_errors: [view: WavesWeb.ErrorView, accepts: ~w(html json)],
+  pubsub: [name: Waves.PubSub, adapter: Phoenix.PubSub.PG2]
 
 # Configures Elixir's Logger
 config :logger, :console,

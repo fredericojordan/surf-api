@@ -1,4 +1,4 @@
-defmodule TestWeb.ConnCase do
+defmodule WavesWeb.ConnCase do
   @moduledoc """
   This module defines the test case to be used by
   tests that require setting up a connection.
@@ -19,18 +19,18 @@ defmodule TestWeb.ConnCase do
     quote do
       # Import conveniences for testing with connections
       use Phoenix.ConnTest
-      alias TestWeb.Router.Helpers, as: Routes
+      alias WavesWeb.Router.Helpers, as: Routes
 
       # The default endpoint for testing
-      @endpoint TestWeb.Endpoint
+      @endpoint WavesWeb.Endpoint
     end
   end
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Test.Repo)
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Waves.Repo)
 
     unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(Test.Repo, {:shared, self()})
+      Ecto.Adapters.SQL.Sandbox.mode(Waves.Repo, {:shared, self()})
     end
 
     {:ok, conn: Phoenix.ConnTest.build_conn()}

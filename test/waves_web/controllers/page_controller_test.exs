@@ -1,5 +1,5 @@
-defmodule TestWeb.PageControllerTest do
-  use TestWeb.ConnCase
+defmodule WavesWeb.PageControllerTest do
+  use WavesWeb.ConnCase
 
   test "GET /", %{conn: conn} do
     conn = get(conn, "/")

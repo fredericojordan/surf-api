@@ -1,4 +1,4 @@
-defmodule TestWeb.ChannelCase do
+defmodule WavesWeb.ChannelCase do
   @moduledoc """
   This module defines the test case to be used by
   channel tests.
@@ -21,15 +21,15 @@ defmodule TestWeb.ChannelCase do
       use Phoenix.ChannelTest
 
       # The default endpoint for testing
-      @endpoint TestWeb.Endpoint
+      @endpoint WavesWeb.Endpoint
     end
   end
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Test.Repo)
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Waves.Repo)
 
     unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(Test.Repo, {:shared, self()})
+      Ecto.Adapters.SQL.Sandbox.mode(Waves.Repo, {:shared, self()})
     end
 
     :ok

@@ -1,5 +1,5 @@
-defmodule TestWeb.Router do
-  use TestWeb, :router
+defmodule WavesWeb.Router do
+  use WavesWeb, :router
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -13,14 +13,14 @@ defmodule TestWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/", TestWeb do
+  scope "/", WavesWeb do
     pipe_through :browser
 
     get "/", PageController, :index
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", TestWeb do
+  # scope "/api", WavesWeb do
   #   pipe_through :api
   # end
 end

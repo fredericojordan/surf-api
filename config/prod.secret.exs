@@ -8,12 +8,12 @@ use Mix.Config
 # file or create a script for recreating it, since it's
 # kept out of version control and might be hard to recover
 # or recreate for your teammates (or yourself later on).
-config :test, TestWeb.Endpoint,
-  secret_key_base: "GnhJHBziBmMpXG7/1Nregad/wBneMDwqDigatt7EhVcESD2IpWaAamXAljr8VJ9i"
+config :waves, WavesWeb.Endpoint,
+  secret_key_base: "4mdYCQHI7GbPSFuAU2/S8ZP6t7BgwunQoTXhcuyort+hei1p0v/X7FdIhVC3XI40"
 
 # Configure your database
-config :test, Test.Repo,
+config :waves, Waves.Repo,
   username: "postgres",
   password: "postgres",
-  database: "test_prod",
+  database: "waves_prod",
   pool_size: 15
