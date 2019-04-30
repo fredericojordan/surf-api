@@ -7,14 +7,10 @@ defmodule WindguruScraper do
   use Hound.Helpers
 
   test "HTTPoison_test", _meta do
-    case HTTPoison.get("https://www.windguru.cz/105160") do
-      {:ok, response} ->
-        case response.status_code do
-          200 -> :ok
-          _ -> :error
-        end
-      _ -> :error
-    end
+    {success_code, response} = HTTPoison.get("https://www.windguru.cz/105160")
+
+    assert success_code == :ok
+    assert response.status_code == 200
   end
 
   test "Hound_test", _meta do
