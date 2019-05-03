@@ -1,0 +1,9 @@
+language: elixir
+install:
+  - mix local.rebar --force
+  - mix local.hex --force
+  - mix deps.get
+  - mix ecto.setup
+  - cd assets && npm install
+script:
+  - mix test
