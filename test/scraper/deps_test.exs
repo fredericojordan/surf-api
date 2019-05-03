@@ -2,7 +2,7 @@ Application.start :hound
 Application.ensure_all_started(:hound)
 ExUnit.start()
 
-defmodule WindguruScraper do
+defmodule DependenciesTest do
   use ExUnit.Case
   use Hound.Helpers
 
@@ -23,8 +23,6 @@ defmodule WindguruScraper do
       |> find_within_element(:id, "tabid_0_0_HTSGW")
       |> find_all_within_element(:tag, "td")
       |> Enum.map(&visible_text/1)
-#      |> Enum.map(&Float.parse/1)
-#      |> IO.inspect()
 
     assert Enum.count(wave_heights) > 0
 
