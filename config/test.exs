@@ -16,3 +16,5 @@ config :waves, Waves.Repo,
   database: "waves_test",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
+
+config :hound, driver: "phantomjs", port: 8910
