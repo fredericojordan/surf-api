@@ -1,5 +1,7 @@
 # Waves Report and Forecast System
 
+[![Build Status](https://travis-ci.org/fredericojordan/waves-api.svg?branch=master)](https://travis-ci.org/fredericojordan/waves-api)
+
 ## Installation:
 
   * Install dependencies with `mix deps.get`
