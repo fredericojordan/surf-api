@@ -5,7 +5,7 @@ install:
   - mix local.hex --force
   - mix deps.get
   - mix ecto.setup
-  - cd assets && npm install
-  - cd ..
+  - cd assets && npm install; cd ..
 script:
+  - phantomjs --wd &
   - mix test
