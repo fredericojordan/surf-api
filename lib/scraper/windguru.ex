@@ -13,15 +13,15 @@ defmodule WindguruScraper do
     find_element(:id, "div_wgfcst0")
   end
 
-  defp parse_int(number) do
-    case Integer.parse(number) do
+  defp parse_int(number_str) do
+    case Integer.parse(number_str) do
       {number, _rest} -> number
       _ -> nil
     end
   end
 
-  defp parse_float(number) do
-    case Float.parse(number) do
+  defp parse_float(number_str) do
+    case Float.parse(number_str) do
      {number, _rest} -> number
       _ -> nil
     end
