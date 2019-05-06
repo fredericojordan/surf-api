@@ -31,29 +31,27 @@ defmodule WindguruScraper do
 
   defp parse_row_float(data_element, tab_id), do: Enum.map(parse_row(data_element, tab_id), &parse_float/1)
 
-  def parse_month(day, now) do
-    if now.day() < String.to_integer(day) do
-      case now.month() do
+  def parse_month(wg_day, now_day, now_month) when now_day < wg_day do
+    case now_month do
         1 -> "12"
-        _ -> String.pad_leading("#{now.month()-1}", 2, "0")
-      end
-    else
-      String.pad_leading("#{now.month()}", 2, "0")
+        _ -> String.pad_leading("#{now_month-1}", 2, "0")
     end
   end
 
+  def parse_month(_wg_day, _now_day, now_month), do: String.pad_leading("#{now_month}", 2, "0")
+
   defp parse_date(
-         <<_weekday::bytes-size(2)>> <>
+         <<_wg_weekday::bytes-size(2)>> <>
          "\n" <>
-         <<day::bytes-size(2)>> <>
+         <<wg_day::bytes-size(2)>> <>
          ".\n" <>
-         <<hour::bytes-size(2)>> <>
+         <<wg_hour::bytes-size(2)>> <>
          "h"
        ) do
 
     now = DateTime.utc_now()
-    month = parse_month(day, now)
-    str = "#{now.year()}-#{month}-#{day}T#{hour}:00:00Z"
+    month = parse_month(String.to_integer(wg_day), now.day(), now.month())
+    str = "#{now.year()}-#{month}-#{wg_day}T#{wg_hour}:00:00Z"
 
     case DateTime.from_iso8601(str) do
       {:ok, datetime, _offset} -> datetime
