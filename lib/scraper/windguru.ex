@@ -31,6 +31,41 @@ defmodule WindguruScraper do
 
   defp parse_row_float(data_element, tab_id), do: Enum.map(parse_row(data_element, tab_id), &parse_float/1)
 
+  def parse_month(wg_day, now_day, now_month) when wg_day < now_day do
+    case now_month do
+        12 -> "01"
+        _ -> String.pad_leading("#{now_month+1}", 2, "0")
+    end
+  end
+
+  def parse_month(_wg_day, _now_day, now_month), do: String.pad_leading("#{now_month}", 2, "0")
+
+  defp parse_date(
+         <<_wg_weekday::bytes-size(2)>> <>
+         "\n" <>
+         <<wg_day::bytes-size(2)>> <>
+         ".\n" <>
+         <<wg_hour::bytes-size(2)>> <>
+         "h"
+       ) do
+
+    now = DateTime.utc_now()
+    month = parse_month(String.to_integer(wg_day), now.day(), now.month())
+    str = "#{now.year()}-#{month}-#{wg_day}T#{wg_hour}:00:00Z"
+
+    case DateTime.from_iso8601(str) do
+      {:ok, datetime, _offset} -> datetime
+      _ -> nil
+    end
+  end
+
+  defp parse_date(_), do: nil
+
+  defp parse_row_dates(data_element, tab_id) do
+    parse_row(data_element, tab_id)
+    |> Enum.map(&parse_date/1)
+  end
+
   defp parse_row(data_element, tab_id) do
     data_element
     |> find_within_element(:id, tab_id)
@@ -53,7 +88,7 @@ defmodule WindguruScraper do
 
   defp parse_data(data_element) do
     %{
-      "dates"          => parse_row(data_element, "tabid_0_0_dates"),        # ["Th\n02.\n15h", ...]
+      "dates"          => parse_row_dates(data_element, "tabid_0_0_dates"),  # [#DateTime<>, #DateTime<>, ...]
 
       "wind_speed"     => parse_row_int(data_element, "tabid_0_0_WINDSPD"),  # knots
       "wind_gust"      => parse_row_int(data_element, "tabid_0_0_GUST"),     # knots
