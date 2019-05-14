@@ -5,6 +5,6 @@ install:
   - mix local.hex --force
   - mix deps.get
 before_script:
-  - phantomjs --wd &
+  - phantomjs --wd --webdriver-loglevel=ERROR &
 script:
   - mix test
