@@ -1,7 +1,7 @@
-defmodule WavesWeb.PageView do
+defmodule WavesWeb.SpotsView do
   use WavesWeb, :view
 
-  def render("index.json", %{spots: spots}) do
+  def render("spots.json", %{spots: spots}) do
     %{
       spots: Enum.map(spots, &spot_json/1)
     }
