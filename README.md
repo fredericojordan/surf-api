@@ -1,6 +1,6 @@
 # Surf Report System
 
-[![Build Status](https://travis-ci.org/fredericojordan/waves-api.svg?branch=master)](https://travis-ci.org/fredericojordan/waves-api)
+[![Build Status](https://travis-ci.org/fredericojordan/surf-api.svg?branch=master)](https://travis-ci.org/fredericojordan/surf-api)
 
 ## Installation:
 
