@@ -1,0 +1,1 @@
+WindguruScraper.scrape_all()

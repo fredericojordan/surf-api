@@ -132,4 +132,9 @@ defmodule WindguruScraper do
     })
   end
 
+  def scrape_all() do
+    Waves.Repo.all(Waves.Spot)
+    |> Enum.each(&scrape/1)
+  end
+
 end
