@@ -116,4 +116,20 @@ defmodule WindguruScraper do
     data
   end
 
+  def scrape(spot) do
+    data = fetch_data(spot.spot_id)
+
+    Waves.Repo.insert(%Waves.SpotForecast{
+      spots_id: spot.id,
+      dates: data["dates"],
+      wind_speed: data["wind_speed"],
+      wind_gust: data["wind_gust"],
+      wind_direction: data["wind_direction"],
+      wave_height: data["wave_height"],
+      wave_period: data["wave_period"],
+      wave_direction: data["wave_direction"],
+      temperature: data["temperature"],
+    })
+  end
+
 end

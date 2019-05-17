@@ -5,6 +5,7 @@ defmodule Waves.Spot do
   schema "spots" do
     field :name, :string
     field :spot_id, :integer
+    has_many :forecasts, Waves.SpotForecast
 
     timestamps()
   end
