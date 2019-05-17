@@ -3,8 +3,8 @@ defmodule Waves.Repo.Migrations.CreateForecasts do
 
   def change do
     create table(:forecasts) do
-      add :spots_id, references(:spots)
-      add :dates, {:array, :date}
+      add :spot_id, references(:spots)
+      add :datetimes, {:array, :utc_datetime}
       add :wind_speed, {:array, :integer}
       add :wind_gust, {:array, :integer}
       add :wind_direction, {:array, :integer}

@@ -4,7 +4,7 @@ defmodule Waves.Repo.Migrations.CreateSpots do
   def change do
     create table(:spots) do
       add :name, :string
-      add :spot_id, :integer
+      add :windguru_id, :integer
 
       timestamps()
     end

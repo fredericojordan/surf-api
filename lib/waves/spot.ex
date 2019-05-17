@@ -4,7 +4,7 @@ defmodule Waves.Spot do
 
   schema "spots" do
     field :name, :string
-    field :spot_id, :integer
+    field :windguru_id, :integer
     has_many :forecasts, Waves.SpotForecast
 
     timestamps()
@@ -13,7 +13,7 @@ defmodule Waves.Spot do
   @doc false
   def changeset(spot, attrs) do
     spot
-    |> cast(attrs, [:name, :spot_id])
+    |> cast(attrs, [:name, :windguru_id])
     |> validate_required([:name])
     |> validate_length(:name, min: 2)
   end

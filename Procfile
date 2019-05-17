@@ -1,2 +1,2 @@
-api: mix phx.server
+web: mix phx.server
 wd: phantomjs --wd

@@ -10,7 +10,7 @@ defmodule WavesWeb.SpotsView do
   def spot_json(spot) do
     %{
       name: spot.name,
-      spot_id: spot.spot_id,
+      windguru_id: spot.windguru_id,
       inserted_at: spot.inserted_at,
       updated_at: spot.updated_at
     }
