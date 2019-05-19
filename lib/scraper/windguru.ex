@@ -5,6 +5,8 @@ defmodule WindguruScraper do
 
   use Hound.Helpers
 
+  alias Waves.{Repo, Spot, SpotForecast}
+
   @default_windguru_id 105160
 
   defp fetch_data_element(windguru_id) do
@@ -119,7 +121,7 @@ defmodule WindguruScraper do
   def scrape(spot) do
     data = fetch_data(spot.windguru_id)
 
-    Waves.Repo.insert(%Waves.SpotForecast{
+    Repo.insert(%SpotForecast{
       spot_id: spot.id,
       datetimes: data["datetimes"],
       wind_speed: data["wind_speed"],
@@ -133,7 +135,7 @@ defmodule WindguruScraper do
   end
 
   def scrape_all() do
-    Waves.Repo.all(Waves.Spot)
+    Repo.all(Spot)
     |> Enum.each(&scrape/1)
   end
 
