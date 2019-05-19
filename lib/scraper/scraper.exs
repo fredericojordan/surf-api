@@ -1,1 +1,1 @@
-WindguruScraper.scrape_all()
+WindguruScraper.scrape_all
