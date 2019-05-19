@@ -17,6 +17,7 @@ defmodule WavesWeb.Router do
     pipe_through :api
 
     get "/", SpotsController, :spots
+    get "/:spot_id", SpotsController, :spot_forecasts
   end
 
 end
