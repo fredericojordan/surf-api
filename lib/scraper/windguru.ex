@@ -22,6 +22,18 @@ defmodule WindguruScraper do
     end
   end
 
+  defp lstrip([""|rest]), do: lstrip(rest)
+  defp lstrip(anything), do: anything
+
+  defp rstrip(list) when is_list(list) do
+    list
+    |> Enum.reverse()
+    |> lstrip()
+    |> Enum.reverse()
+  end
+
+  defp rstrip(anything), do: anything
+
   defp parse_float(number_str) do
     case Float.parse(number_str) do
      {number, _rest} -> number
@@ -73,6 +85,7 @@ defmodule WindguruScraper do
     |> find_within_element(:id, tab_id)
     |> find_all_within_element(:tag, "td")
     |> Enum.map(&visible_text/1)
+    |> rstrip()
   end
 
   defp parse_direction(data_element, tab_id) do
