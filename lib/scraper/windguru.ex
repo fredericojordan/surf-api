@@ -103,17 +103,17 @@ defmodule WindguruScraper do
 
   defp parse_data(data_element) do
     %{
-      "datetimes"      => parse_row_datetimes(data_element, "tabid_0_0_dates"),  # [#DateTime<>, #DateTime<>, ...]
+      datetimes:      parse_row_datetimes(data_element, "tabid_0_0_dates"),  # [#DateTime<>, #DateTime<>, ...]
 
-      "wind_speed"     => parse_row_int(data_element, "tabid_0_0_WINDSPD"),      # knots
-      "wind_gust"      => parse_row_int(data_element, "tabid_0_0_GUST"),         # knots
-      "wind_direction" => parse_direction(data_element, "tabid_0_0_SMER"),       # degrees (from north, clockwise)
+      wind_speed:     parse_row_int(data_element, "tabid_0_0_WINDSPD"),      # knots
+      wind_gust:      parse_row_int(data_element, "tabid_0_0_GUST"),         # knots
+      wind_direction: parse_direction(data_element, "tabid_0_0_SMER"),       # degrees (from north, clockwise)
 
-      "wave_height"    => parse_row_float(data_element, "tabid_0_0_HTSGW"),      # meters
-      "wave_period"    => parse_row_int(data_element, "tabid_0_0_PERPW"),        # seconds
-      "wave_direction" => parse_direction(data_element, "tabid_0_0_DIRPW"),      # degrees (from north, clockwise)
+      wave_height:    parse_row_float(data_element, "tabid_0_0_HTSGW"),      # meters
+      wave_period:    parse_row_int(data_element, "tabid_0_0_PERPW"),        # seconds
+      wave_direction: parse_direction(data_element, "tabid_0_0_DIRPW"),      # degrees (from north, clockwise)
 
-      "temperature"    => parse_row_int(data_element, "tabid_0_0_TMPE"),         # degrees Celsius
+      temperature:    parse_row_int(data_element, "tabid_0_0_TMPE"),         # degrees Celsius
     }
   end
 
