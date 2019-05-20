@@ -1,0 +1,4 @@
+<section class="charts">
+	<%= raw Chartkick.line_chart Poison.encode!(@wave_height) %>
+	<%= raw Chartkick.line_chart Poison.encode!(@wind_data) %>
+</section>

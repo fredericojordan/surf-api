@@ -14,6 +14,12 @@ defmodule WavesWeb.Router do
   end
 
   scope "/", WavesWeb do
+    pipe_through :browser
+
+    get "/", PageController, :index
+  end
+
+  scope "/api", WavesWeb do
     pipe_through :api
 
     get "/", SpotsController, :spots

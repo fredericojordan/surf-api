@@ -4,19 +4,16 @@
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Waves · Phoenix Framework</title>
+    <title>Surf API</title>
     <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/chartkick.js") %>"></script>
   </head>
   <body>
     <header>
-      <section class="container">
-        <nav role="navigation">
-          <ul>
-            <li><a href="https://hexdocs.pm/phoenix/overview.html">Get Started</a></li>
-          </ul>
-        </nav>
-        <a href="http://phoenixframework.org/" class="phx-logo">
-          <img src="<%= Routes.static_path(@conn, "/images/phoenix.png") %>" alt="Phoenix Framework Logo"/>
+      <section class="container center">
+        <a href="http://surf-api.herokuapp.com/" class="surf-api-logo">
+          <img src="<%= Routes.static_path(@conn, "/images/surf-api-logo.png") %>" alt="Surf API Logo"/>
         </a>
       </section>
     </header>

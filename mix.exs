@@ -45,7 +45,8 @@ defmodule Waves.MixProject do
       {:plug_cowboy, "~> 2.0"},
       {:httpoison, "~> 1.5.1"},
       {:floki, "~> 0.21.0"},
-      {:hound, "~> 1.0"}
+      {:hound, "~> 1.0"},
+      {:chartkick, "~>0.3.0"},
     ]
   end
 
