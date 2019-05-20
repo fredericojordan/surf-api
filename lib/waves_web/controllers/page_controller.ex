@@ -17,7 +17,7 @@ defmodule WavesWeb.PageController do
         _ ->
           [
             %{
-              name:  "Wave Height",
+              name: "Wave Height",
               data: Map.new(List.zip([forecast.datetimes, forecast.wave_height]))
             },
           ]
@@ -29,11 +29,11 @@ defmodule WavesWeb.PageController do
         _ ->
           [
             %{
-              name:  "Wind Speed",
+              name: "Wind Speed",
               data: Map.new(List.zip([forecast.datetimes, forecast.wind_speed]))
             },
             %{
-              name:  "Wind Gusts",
+              name: "Wind Gusts",
               data: Map.new(List.zip([forecast.datetimes, forecast.wind_gust]))
             },
           ]
