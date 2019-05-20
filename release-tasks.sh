@@ -8,6 +8,3 @@ mix phx.digest
 
 # Custom tasks (like DB migrations)
 mix ecto.migrate
-
-# Finally run the server
-mix phx.server

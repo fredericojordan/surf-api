@@ -1,1 +1,2 @@
-web: ./server.sh
+release: ./release-tasks.sh
+web: mix phx.server
