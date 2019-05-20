@@ -45,7 +45,7 @@ defmodule WindguruScraper do
 
   defp parse_row_float(data_element, tab_id), do: Enum.map(parse_row(data_element, tab_id), &parse_float/1)
 
-  def parse_month(wg_day, now_day, now_month) when wg_day < now_day do
+  def parse_month(wg_day, now_day, now_month) when wg_day < 10 and now_day > 20 do
     case now_month do
         12 -> "01"
         _ -> String.pad_leading("#{now_month+1}", 2, "0")
