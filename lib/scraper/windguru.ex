@@ -65,7 +65,7 @@ defmodule WindguruScraper do
 
     now = DateTime.utc_now()
     month = parse_month(String.to_integer(wg_day), now.day(), now.month())
-    str = "#{now.year()}-#{month}-#{wg_day}T#{wg_hour}:00:00Z"
+    str = "#{now.year()}-#{month}-#{wg_day}T#{wg_hour}:00:00-03:00"
 
     case DateTime.from_iso8601(str) do
       {:ok, datetime, _offset} -> datetime
