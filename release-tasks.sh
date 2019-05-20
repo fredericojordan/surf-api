@@ -5,7 +5,7 @@ mix compile
 # Compile assets
 cd assets
 npm install
-webpack --mode production
+webpack-cli --mode production
 cd ..
 
 mix phx.digest
