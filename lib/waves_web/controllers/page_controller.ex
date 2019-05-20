@@ -8,7 +8,7 @@ defmodule WavesWeb.PageController do
   def index(conn, _params) do
     forecast =
       SpotForecast
-      |> first
+      |> last
       |> Repo.one()
 
     wave_height =
