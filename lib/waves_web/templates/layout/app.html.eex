@@ -23,6 +23,11 @@
       <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
       <%= render @view_module, @view_template, assigns %>
     </main>
+    <section class="footer center">
+      <a href="https://github.com/fredericojordan/surf-api/" class="github-link">
+        <img src="<%= Routes.static_path(@conn, "/images/github.png") %>" alt="Github Repo"/>
+      </a>
+    </section>
     <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
   </body>
 </html>

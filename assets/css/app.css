@@ -17,6 +17,16 @@ h6{font-size: 1.4rem; letter-spacing: 0; line-height: 1.2}
   position: relative;
   width: 100%
 }
+.footer {
+  display: flex;
+  margin: 30px auto;
+  padding: 0;
+}
+.footer img {
+  height: 40px;
+  width: 40px;
+  opacity: 0.2;
+}
 .center {
   justify-content: center;
 }
