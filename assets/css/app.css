@@ -27,6 +27,9 @@ h6{font-size: 1.4rem; letter-spacing: 0; line-height: 1.2}
   width: 40px;
   opacity: 0.2;
 }
+.footer img:hover {
+  opacity: 0.6;
+}
 .center {
   justify-content: center;
 }
