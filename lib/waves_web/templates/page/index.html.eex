@@ -1,4 +1,6 @@
 <section class="charts">
 	<%= raw Chartkick.line_chart Poison.encode!(@wave_height) %>
 	<%= raw Chartkick.line_chart Poison.encode!(@wind_data) %>
+	<p><%= @spot_name %></p>
+	<p><%= @forecast_datetime %></p>
 </section>

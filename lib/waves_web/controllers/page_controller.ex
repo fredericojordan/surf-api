@@ -9,7 +9,8 @@ defmodule WavesWeb.PageController do
     forecast =
       SpotForecast
       |> last
-      |> Repo.one()
+      |> Repo.one
+      |> Repo.preload(spot: :forecasts)
 
     wave_height =
       case forecast do
@@ -39,9 +40,19 @@ defmodule WavesWeb.PageController do
           ]
       end
 
+    spot_name =
+      case forecast do
+        nil -> "Error"
+        _ -> forecast.spot.name
+      end
+
+    d = forecast.inserted_at
+
     conn
     |> assign(:wave_height, wave_height)
     |> assign(:wind_data, wind_data)
+    |> assign(:spot_name, spot_name)
+    |> assign(:forecast_datetime, "#{d.year}-#{d.month}-#{d.day} #{d.hour}:#{d.minute}")
     |> render("index.html")
   end
 end
