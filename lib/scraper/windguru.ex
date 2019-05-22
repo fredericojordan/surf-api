@@ -15,6 +15,8 @@ defmodule WindguruScraper do
     find_element(:id, "div_wgfcst0")
   end
 
+  defp pad(number), do: String.pad_leading("#{number}", 2, "0")
+
   defp parse_int(number_str) do
     case Integer.parse(number_str) do
       {number, _rest} -> number
@@ -45,14 +47,14 @@ defmodule WindguruScraper do
 
   defp parse_row_float(data_element, tab_id), do: Enum.map(parse_row(data_element, tab_id), &parse_float/1)
 
-  def parse_month(wg_day, now_day, now_month) when wg_day < now_day do
+  def parse_month(wg_day, now_day, now_month) when wg_day < 10 and now_day > 20 do
     case now_month do
         12 -> "01"
-        _ -> String.pad_leading("#{now_month+1}", 2, "0")
+        _ -> pad(now_month+1)
     end
   end
 
-  def parse_month(_wg_day, _now_day, now_month), do: String.pad_leading("#{now_month}", 2, "0")
+  def parse_month(_wg_day, _now_day, now_month), do: pad(now_month)
 
   defp parse_datetime(
          <<_wg_weekday::bytes-size(2)>> <>
@@ -65,7 +67,7 @@ defmodule WindguruScraper do
 
     now = DateTime.utc_now()
     month = parse_month(String.to_integer(wg_day), now.day(), now.month())
-    str = "#{now.year()}-#{month}-#{wg_day}T#{wg_hour}:00:00Z"
+    str = "#{now.year()}-#{month}-#{wg_day}T#{wg_hour}:00:00-03:00"
 
     case DateTime.from_iso8601(str) do
       {:ok, datetime, _offset} -> datetime
@@ -103,17 +105,17 @@ defmodule WindguruScraper do
 
   defp parse_data(data_element) do
     %{
-      "datetimes"      => parse_row_datetimes(data_element, "tabid_0_0_dates"),  # [#DateTime<>, #DateTime<>, ...]
+      datetimes:      parse_row_datetimes(data_element, "tabid_0_0_dates"),  # [#DateTime<>, #DateTime<>, ...]
 
-      "wind_speed"     => parse_row_int(data_element, "tabid_0_0_WINDSPD"),      # knots
-      "wind_gust"      => parse_row_int(data_element, "tabid_0_0_GUST"),         # knots
-      "wind_direction" => parse_direction(data_element, "tabid_0_0_SMER"),       # degrees (from north, clockwise)
+      wind_speed:     parse_row_int(data_element, "tabid_0_0_WINDSPD"),      # knots
+      wind_gust:      parse_row_int(data_element, "tabid_0_0_GUST"),         # knots
+      wind_direction: parse_direction(data_element, "tabid_0_0_SMER"),       # degrees (from north, clockwise)
 
-      "wave_height"    => parse_row_float(data_element, "tabid_0_0_HTSGW"),      # meters
-      "wave_period"    => parse_row_int(data_element, "tabid_0_0_PERPW"),        # seconds
-      "wave_direction" => parse_direction(data_element, "tabid_0_0_DIRPW"),      # degrees (from north, clockwise)
+      wave_height:    parse_row_float(data_element, "tabid_0_0_HTSGW"),      # meters
+      wave_period:    parse_row_int(data_element, "tabid_0_0_PERPW"),        # seconds
+      wave_direction: parse_direction(data_element, "tabid_0_0_DIRPW"),      # degrees (from north, clockwise)
 
-      "temperature"    => parse_row_int(data_element, "tabid_0_0_TMPE"),         # degrees Celsius
+      temperature:    parse_row_int(data_element, "tabid_0_0_TMPE"),         # degrees Celsius
     }
   end
 
@@ -134,17 +136,21 @@ defmodule WindguruScraper do
   def scrape(spot) do
     data = fetch_data(spot.windguru_id)
 
-    Repo.insert(%SpotForecast{
-      spot_id: spot.id,
-      datetimes: data["datetimes"],
-      wind_speed: data["wind_speed"],
-      wind_gust: data["wind_gust"],
-      wind_direction: data["wind_direction"],
-      wave_height: data["wave_height"],
-      wave_period: data["wave_period"],
-      wave_direction: data["wave_direction"],
-      temperature: data["temperature"],
-    })
+    case data.datetimes do
+      nil -> IO.puts("Error while fetching data for #{spot.name} (#{spot.windguru_id})")
+      _ ->
+        Repo.insert(%SpotForecast{
+          spot_id: spot.id,
+          datetimes: data.datetimes,
+          wind_speed: data.wind_speed,
+          wind_gust: data.wind_gust,
+          wind_direction: data.wind_direction,
+          wave_height: data.wave_height,
+          wave_period: data.wave_period,
+          wave_direction: data.wave_direction,
+          temperature: data.temperature,
+        })
+    end
   end
 
   def scrape_all() do
