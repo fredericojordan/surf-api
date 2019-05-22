@@ -54,7 +54,8 @@ defmodule WavesWeb.PageController do
     |> assign(:wave_height, wave_height)
     |> assign(:wind_data, wind_data)
     |> assign(:spot_name, spot_name)
-    |> assign(:forecast_datetime, "#{d.year}-#{pad(d.month)}-#{pad(d.day)} #{pad(d.hour)}:#{pad(d.minute)}")
+    |> assign(:forecast_date, "#{d.year}-#{pad(d.month)}-#{pad(d.day)}")
+    |> assign(:forecast_time, "#{pad(d.hour)}:#{pad(d.minute)}")
     |> render("index.html")
   end
 end

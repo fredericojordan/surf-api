@@ -73,18 +73,23 @@ select {
 
 /* Chart section */
 .charts {
-  color: #bababa;
+  color: #ccc;
   text-align: center;
   border-bottom: 1px solid #e3e3e3;
   background: #eee;
   border-radius: 6px;
   padding: 40px 40px 10px 40px;
   font-weight: normal;
-  font-size: 100%;
+  font-size: 14px;
 }
 .charts p {
   margin-top: 10px;
   margin-bottom: 0;
+}
+.charts .name {
+  color: #babaca;
+  font-size: 18px;
+  font-weight: 600;
 }
 
 /* Logo */
