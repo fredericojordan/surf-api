@@ -12,13 +12,13 @@
   </head>
   <body>
     <header>
-      <section class="center">
-        <a href="http://surf-api.herokuapp.com/">
-          <div class="surf-api-logo">
+      <section class="container center">
+        <div class="surf-api-logo">
+          <a href="http://surf-api.herokuapp.com/">
 	          <img src="<%= Routes.static_path(@conn, "/images/chicken-joe.png") %>" alt="Chicken Joe"/>
-	          <img src="<%= Routes.static_path(@conn, "/images/surf-api-logo-creaky-frank.png") %>" alt="Surf API Logo" class="title"/>
-          </div>
-        </a>
+	          <img src="<%= Routes.static_path(@conn, "/images/surf-api-logo-creaky-frank.png") %>" alt="Surf API Logo"/>
+          </a>
+        </div>
       </section>
     </header>
     <main role="main" class="container">

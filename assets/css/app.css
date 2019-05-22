@@ -93,18 +93,16 @@ select {
 }
 
 /* Logo */
-.surf-api-logo {
+.surf-api-logo a {
   display: flex;
   flex-direction: row;
   align-items: center;
 }
-.surf-api-logo img {
-  max-height: 150px;
-  object-fit: scale-down;
-  margin: 0 20px;
+.surf-api-logo img:first-child{
+  width: 30%;
 }
-.surf-api-logo .title {
-  max-height: 100px;
+.surf-api-logo img:last-child{
+  width: 70%;
   opacity: 0.8;
 }
 
@@ -120,32 +118,4 @@ header section {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-}
-header nav ul,
-header nav li {
-  margin: 0;
-  padding: 0;
-  display: block;
-  text-align: right;
-  white-space: nowrap;
-}
-header nav ul {
-  margin: 1rem;
-  margin-top: 0;
-}
-header nav a {
-  display: block;
-}
-
-@media (min-width: 40.0rem) { /* Small devices (landscape phones, 576px and up) */
-  header section {
-    flex-direction: row;
-  }
-  header nav ul {
-    margin: 1rem;
-  }
-  .surf-api-logo {
-    flex-basis: 527px;
-    margin: 2rem 1rem;
-  }
 }
