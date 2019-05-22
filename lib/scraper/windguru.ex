@@ -134,19 +134,19 @@ defmodule WindguruScraper do
   def scrape(spot) do
     data = fetch_data(spot.windguru_id)
 
-    case data["datetimes"] do
+    case data.datetimes do
       nil -> IO.puts("Error while fetching data for #{spot.name} (#{spot.windguru_id})")
       _ ->
         Repo.insert(%SpotForecast{
           spot_id: spot.id,
-          datetimes: data["datetimes"],
-          wind_speed: data["wind_speed"],
-          wind_gust: data["wind_gust"],
-          wind_direction: data["wind_direction"],
-          wave_height: data["wave_height"],
-          wave_period: data["wave_period"],
-          wave_direction: data["wave_direction"],
-          temperature: data["temperature"],
+          datetimes: data.datetimes,
+          wind_speed: data.wind_speed,
+          wind_gust: data.wind_gust,
+          wind_direction: data.wind_direction,
+          wave_height: data.wave_height,
+          wave_period: data.wave_period,
+          wave_direction: data.wave_direction,
+          temperature: data.temperature,
         })
     end
   end
