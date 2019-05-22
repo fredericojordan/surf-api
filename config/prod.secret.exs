@@ -9,11 +9,11 @@ use Mix.Config
 # kept out of version control and might be hard to recover
 # or recreate for your teammates (or yourself later on).
 config :waves, WavesWeb.Endpoint,
-  secret_key_base: "4mdYCQHI7GbPSFuAU2/S8ZP6t7BgwunQoTXhcuyort+hei1p0v/X7FdIhVC3XI40"
+  secret_key_base: System.get_env("SECRET_KEY_BASE")
 
 # Configure your database
 config :waves, Waves.Repo,
-  username: "postgres",
-  password: "postgres",
-  database: "waves_prod",
-  pool_size: 15
+  url: System.get_env("DATABASE_URL"),
+  pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10")
+
+config :hound, driver: "phantomjs", port: 8910

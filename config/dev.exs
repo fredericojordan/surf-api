@@ -73,3 +73,5 @@ config :waves, Waves.Repo,
   database: "waves_dev",
   hostname: "localhost",
   pool_size: 10
+
+config :hound, driver: "phantomjs", port: 8910

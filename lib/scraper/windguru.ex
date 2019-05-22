@@ -5,10 +5,12 @@ defmodule WindguruScraper do
 
   use Hound.Helpers
 
-  @default_spot_id 105160
+  alias Waves.{Repo, Spot, SpotForecast}
 
-  defp fetch_data_element(spot_id) do
-    navigate_to("https://www.windguru.cz/#{spot_id}")
+  @default_windguru_id 105160
+
+  defp fetch_data_element(windguru_id) do
+    navigate_to("https://www.windguru.cz/#{windguru_id}")
 
     find_element(:id, "div_wgfcst0")
   end
@@ -19,6 +21,18 @@ defmodule WindguruScraper do
       _ -> nil
     end
   end
+
+  defp lstrip([""|rest]), do: lstrip(rest)
+  defp lstrip(anything), do: anything
+
+  defp rstrip(list) when is_list(list) do
+    list
+    |> Enum.reverse()
+    |> lstrip()
+    |> Enum.reverse()
+  end
+
+  defp rstrip(anything), do: anything
 
   defp parse_float(number_str) do
     case Float.parse(number_str) do
@@ -40,7 +54,7 @@ defmodule WindguruScraper do
 
   def parse_month(_wg_day, _now_day, now_month), do: String.pad_leading("#{now_month}", 2, "0")
 
-  defp parse_date(
+  defp parse_datetime(
          <<_wg_weekday::bytes-size(2)>> <>
          "\n" <>
          <<wg_day::bytes-size(2)>> <>
@@ -59,11 +73,11 @@ defmodule WindguruScraper do
     end
   end
 
-  defp parse_date(_), do: nil
+  defp parse_datetime(_), do: nil
 
-  defp parse_row_dates(data_element, tab_id) do
+  defp parse_row_datetimes(data_element, tab_id) do
     parse_row(data_element, tab_id)
-    |> Enum.map(&parse_date/1)
+    |> Enum.map(&parse_datetime/1)
   end
 
   defp parse_row(data_element, tab_id) do
@@ -71,6 +85,7 @@ defmodule WindguruScraper do
     |> find_within_element(:id, tab_id)
     |> find_all_within_element(:tag, "td")
     |> Enum.map(&visible_text/1)
+    |> rstrip()
   end
 
   defp parse_direction(data_element, tab_id) do
@@ -88,32 +103,53 @@ defmodule WindguruScraper do
 
   defp parse_data(data_element) do
     %{
-      "dates"          => parse_row_dates(data_element, "tabid_0_0_dates"),  # [#DateTime<>, #DateTime<>, ...]
+      "datetimes"      => parse_row_datetimes(data_element, "tabid_0_0_dates"),  # [#DateTime<>, #DateTime<>, ...]
 
-      "wind_speed"     => parse_row_int(data_element, "tabid_0_0_WINDSPD"),  # knots
-      "wind_gust"      => parse_row_int(data_element, "tabid_0_0_GUST"),     # knots
-      "wind_direction" => parse_direction(data_element, "tabid_0_0_SMER"),   # degrees (from north, clockwise)
+      "wind_speed"     => parse_row_int(data_element, "tabid_0_0_WINDSPD"),      # knots
+      "wind_gust"      => parse_row_int(data_element, "tabid_0_0_GUST"),         # knots
+      "wind_direction" => parse_direction(data_element, "tabid_0_0_SMER"),       # degrees (from north, clockwise)
 
-      "wave_height"    => parse_row_float(data_element, "tabid_0_0_HTSGW"),  # meters
-      "wave_period"    => parse_row_int(data_element, "tabid_0_0_PERPW"),    # seconds
-      "wave_direction" => parse_direction(data_element, "tabid_0_0_DIRPW"),  # degrees (from north, clockwise)
+      "wave_height"    => parse_row_float(data_element, "tabid_0_0_HTSGW"),      # meters
+      "wave_period"    => parse_row_int(data_element, "tabid_0_0_PERPW"),        # seconds
+      "wave_direction" => parse_direction(data_element, "tabid_0_0_DIRPW"),      # degrees (from north, clockwise)
 
-      "temperature"    => parse_row_int(data_element, "tabid_0_0_TMPE"),     # degrees Celsius
+      "temperature"    => parse_row_int(data_element, "tabid_0_0_TMPE"),         # degrees Celsius
     }
   end
 
-  def fetch_data(), do: fetch_data(@default_spot_id)
+  def fetch_data(), do: fetch_data(@default_windguru_id)
 
-  def fetch_data(spot_id) do
+  def fetch_data(windguru_id) do
     Hound.start_session
 
     data =
-      fetch_data_element(spot_id)
+      fetch_data_element(windguru_id)
       |> parse_data()
 
     Hound.end_session
 
     data
+  end
+
+  def scrape(spot) do
+    data = fetch_data(spot.windguru_id)
+
+    Repo.insert(%SpotForecast{
+      spot_id: spot.id,
+      datetimes: data["datetimes"],
+      wind_speed: data["wind_speed"],
+      wind_gust: data["wind_gust"],
+      wind_direction: data["wind_direction"],
+      wave_height: data["wave_height"],
+      wave_period: data["wave_period"],
+      wave_direction: data["wave_direction"],
+      temperature: data["temperature"],
+    })
+  end
+
+  def scrape_all() do
+    Repo.all(Spot)
+    |> Enum.each(&scrape/1)
   end
 
 end
