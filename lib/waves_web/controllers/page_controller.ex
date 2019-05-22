@@ -5,6 +5,8 @@ defmodule WavesWeb.PageController do
 
   alias Waves.{Repo, SpotForecast}
 
+  defp pad(number), do: String.pad_leading("#{number}", 2, "0")
+
   def index(conn, _params) do
     forecast =
       SpotForecast
@@ -52,7 +54,7 @@ defmodule WavesWeb.PageController do
     |> assign(:wave_height, wave_height)
     |> assign(:wind_data, wind_data)
     |> assign(:spot_name, spot_name)
-    |> assign(:forecast_datetime, "#{d.year}-#{d.month}-#{d.day} #{d.hour}:#{d.minute}")
+    |> assign(:forecast_datetime, "#{d.year}-#{pad(d.month)}-#{pad(d.day)} #{pad(d.hour)}:#{pad(d.minute)}")
     |> render("index.html")
   end
 end

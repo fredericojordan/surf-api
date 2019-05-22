@@ -15,6 +15,8 @@ defmodule WindguruScraper do
     find_element(:id, "div_wgfcst0")
   end
 
+  defp pad(number), do: String.pad_leading("#{number}", 2, "0")
+
   defp parse_int(number_str) do
     case Integer.parse(number_str) do
       {number, _rest} -> number
@@ -48,11 +50,11 @@ defmodule WindguruScraper do
   def parse_month(wg_day, now_day, now_month) when wg_day < 10 and now_day > 20 do
     case now_month do
         12 -> "01"
-        _ -> String.pad_leading("#{now_month+1}", 2, "0")
+        _ -> pad(now_month+1)
     end
   end
 
-  def parse_month(_wg_day, _now_day, now_month), do: String.pad_leading("#{now_month}", 2, "0")
+  def parse_month(_wg_day, _now_day, now_month), do: pad(now_month)
 
   defp parse_datetime(
          <<_wg_weekday::bytes-size(2)>> <>
