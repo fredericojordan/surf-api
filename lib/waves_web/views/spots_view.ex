@@ -19,7 +19,7 @@ defmodule WavesWeb.SpotsView do
       name: spot.name,
       windguru_id: spot.windguru_id,
       inserted_at: spot.inserted_at,
-      updated_at: spot.updated_at
+      updated_at: spot.updated_at,
     }
   end
 
@@ -35,6 +35,8 @@ defmodule WavesWeb.SpotsView do
       wave_period: spot_forecast.wave_period,
       wave_direction: spot_forecast.wave_direction,
       temperature: spot_forecast.temperature,
+      inserted_at: spot_forecast.inserted_at,
+      updated_at: spot_forecast.updated_at,
     }
   end
 end
