@@ -12,7 +12,11 @@ defmodule WavesWeb.SpotsController do
 
   def spot_forecasts(conn, params) do
     spot_id = String.to_integer(params["spot_id"])
-    spot_forecasts = Repo.all(from s in SpotForecast, where: s.spot_id == ^spot_id)
-    render conn, "spot_forecasts.json", spot_forecasts: spot_forecasts
+    spot_forecasts =
+      SpotForecast
+      |> where(spot_id: ^spot_id)
+      |> last
+      |> Repo.one()
+    render conn, "spot_forecasts.json", spot_forecasts: [spot_forecasts]
   end
 end
